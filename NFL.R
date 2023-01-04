@@ -56,4 +56,24 @@ total <- dal_all %>%
   group_by(rusher_player_name) %>%
   summarize(total_home = sum(yards.x), total_away = sum(yards.y))
 
+View(total)
 
+# Created a new column and dropped NA values
+dal_all %>%
+  drop_na(yards.x, yards.y)
+
+dal_all <- dal_all %>%
+  mutate(total = yards.x + yards.y) %>%
+  drop_na(yards.x, yards.y)
+
+#Bar chart
+dal_all %>%
+  ggplot() +
+  geom_col(mapping = aes(x = rusher_player_name, y = total))
+
+# Scatter plot
+dal_all %>%
+  ggplot() +
+  geom_point(mapping = aes(x = yards.x, y = yards.y, color = rusher_player_name))
+
+         
